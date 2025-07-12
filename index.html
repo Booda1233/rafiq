@@ -3,11 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>صديقك الافتراضي</title>
+    <title>Rafiq</title>
+
+    <!-- ✅ Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECBJGXT6JN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ECBJGXT6JN');
+    </script>
+    <!-- ✅ نهاية Google Analytics -->
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
       :root {
         --bg-dark: #111827; /* slate-900 */
@@ -23,7 +35,6 @@
         font-family: 'Cairo', sans-serif;
         background-color: var(--bg-dark);
       }
-      /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
       }
@@ -37,15 +48,12 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #4b5563; /* slate-600 */
       }
-      /* Adding Tailwind animations */
       @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
       @keyframes zoom-in-95 { 0% { opacity: 0; transform: scale(.95); } 100% { opacity: 1; transform: scale(1); } }
       .animate-in { animation-duration: 300ms; animation-timing-function: ease-out; animation-fill-mode: forwards; }
       .fade-in { animation-name: fade-in; }
       .fade-in-0 { animation-name: fade-in; }
       .zoom-in-95 { animation-name: zoom-in-95; }
-      
-      /* Animation for chat messages */
       @keyframes slide-in-from-left {
         from { opacity: 0; transform: translateX(-20px); }
         to { opacity: 1; transform: translateX(0); }
@@ -57,18 +65,20 @@
       .animate-slide-in-left { animation: slide-in-from-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
       .animate-slide-in-right { animation: slide-in-from-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.1.0",
-    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
-    "react/": "https://esm.sh/react@^19.1.0/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.9.0"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
-</head>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.1.0",
+        "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+        "react/": "https://esm.sh/react@^19.1.0/",
+        "@google/genai": "https://esm.sh/@google/genai@^1.9.0"
+      }
+    }
+    </script>
+
+    <link rel="stylesheet" href="/index.css">
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
