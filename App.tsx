@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import type { Chat } from "@google/genai";
 import { startChat } from './services/geminiService';
@@ -84,6 +85,7 @@ const App: React.FC = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isTyping, setIsTyping] = useState<boolean>(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
@@ -163,7 +165,7 @@ const App: React.FC = () => {
     if (chatAreaRef.current) {
       chatAreaRef.current.scrollTop = chatAreaRef.current.scrollHeight;
     }
-  }, [messages, isLoading]);
+  }, [messages, isTyping]);
 
   const handleSetupComplete = (data: UserData) => {
     const newId = `convo-${Date.now()}`;
@@ -210,11 +212,20 @@ const App: React.FC = () => {
   
   const handleNewChat = () => {
     if (!userData) return; 
+    
+    const greetings = [
+      `أهلاً يا ${userData.userName}! إيه أخبارك؟ فيه حاجة جديدة حصلت وحابب نتكلم فيها؟ 😄`,
+      `يا هلا بـ${userData.userName}! وحشتني والله. عامل إيه النهاردة؟ 🤔`,
+      `إزيك يا ${userData.userName}! يارب تكون بخير. فيه حاجة معينة على بالك؟`,
+      `أهلاً بيك يا صديقي ${userData.userName}! مستعد لدردشة جديدة؟ أنا كلي آذان صاغية.`,
+    ];
+    const initialMessageText = greetings[Math.floor(Math.random() * greetings.length)];
+
     const newId = `convo-${Date.now()}`;
     const newConversation: Conversation = {
       id: newId,
       title: "محادثة جديدة",
-      messages: [{ id: 'init', text: `أهلاً يا ${userData.userName}! أنا ${userData.aiName}، مستعد لبدء محادثة جديدة!`, sender: 'ai' }],
+      messages: [{ id: 'init', text: initialMessageText, sender: 'ai' }],
       userData: userData,
       lastUpdated: Date.now()
     };
@@ -301,6 +312,12 @@ const App: React.FC = () => {
        updateConversation(activeConversationId, { title: userInput.substring(0, 40) + (userInput.length > 40 ? '...' : '') });
     }
 
+    // Simulate a "thinking" delay to feel more human
+    const thinkingTime = Math.random() * 800 + 400; // 400ms to 1200ms
+    await new Promise(resolve => setTimeout(resolve, thinkingTime));
+    
+    setIsTyping(true);
+
     try {
         const messageParts = [];
         if (userInput) messageParts.push({ text: userInput });
@@ -336,6 +353,7 @@ const App: React.FC = () => {
         });
     } finally {
         setIsLoading(false);
+        setIsTyping(false);
         if (imageUrl) {
             URL.revokeObjectURL(imageUrl); // Clean up
         }
@@ -363,7 +381,7 @@ const App: React.FC = () => {
           {messages.map((msg) => (
             <ChatMessage key={msg.id} message={msg} avatar={msg.sender === 'ai' ? userData.aiAvatar : userData.userAvatar} />
           ))}
-          {isLoading && <TypingIndicator />}
+          {isTyping && <TypingIndicator />}
         </main>
         <ChatInput onSendMessage={handleSendMessage} isLoading={isLoading} />
       </div>

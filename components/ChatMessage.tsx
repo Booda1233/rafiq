@@ -15,9 +15,10 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ message, avatar }) => {
   
   const containerClasses = isAi ? 'justify-start' : 'justify-end';
   const avatarOrder = isAi ? 'order-first' : 'order-last';
+  const animationClass = isAi ? 'animate-slide-in-left' : 'animate-slide-in-right';
 
   return (
-    <div className={`flex w-full my-3 items-end gap-3 ${containerClasses}`}>
+    <div className={`flex w-full my-3 items-end gap-3 ${containerClasses} ${animationClass}`}>
       <img src={avatar} alt="avatar" className={`w-9 h-9 rounded-full flex-shrink-0 ${avatarOrder} bg-slate-600 shadow-md`} />
       <div className={`max-w-[75%] md:max-w-[65%] px-4 py-3 rounded-2xl shadow-lg ${bubbleClasses}`}>
         {message.imageUrl && (
