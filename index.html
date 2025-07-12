@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> Rafiq</title>
+    <title>صديقك الافتراضي</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,6 +44,18 @@
       .fade-in { animation-name: fade-in; }
       .fade-in-0 { animation-name: fade-in; }
       .zoom-in-95 { animation-name: zoom-in-95; }
+      
+      /* Animation for chat messages */
+      @keyframes slide-in-from-left {
+        from { opacity: 0; transform: translateX(-20px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes slide-in-from-right {
+        from { opacity: 0; transform: translateX(20px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      .animate-slide-in-left { animation: slide-in-from-left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
+      .animate-slide-in-right { animation: slide-in-from-right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
     </style>
 
 <link rel="stylesheet" href="/index.css">
@@ -57,7 +69,7 @@
   }
 }
 </script>
-  <script type="module" crossorigin src="/rafiq/assets/index-lmHklh1j.js"></script>
+  <script type="module" crossorigin src="/rafiq/assets/index-CccBl7LW.js"></script>
   <link rel="modulepreload" crossorigin href="/rafiq/assets/vendor-E_BXNJb8.js">
   <link rel="modulepreload" crossorigin href="/rafiq/assets/react-CI4HhMjm.js">
 </head>
