@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rafiq</title>
-    
-    <!-- ✅ Google Analytics -->
+    <title> Rafiq</title>
+     <!-- ✅ Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ECBJGXT6JN"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -19,90 +17,135 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
       :root {
-        --background: #0d1117; /* GitHub Dark Background */
-        --surface-1: #161b22;  /* GitHub Dark Surface */
-        --surface-2: #21262d;  /* GitHub Dark Deeper Surface */
-        --accent: #22d3ee;    /* cyan-400 */
-        --accent-hover: #06b6d4; /* cyan-500 */
-        --text-primary: #c9d1d9; /* GitHub Dark Primary Text */
-        --text-secondary: #8b949e; /* GitHub Dark Secondary Text */
-        --border: #30363d;   /* GitHub Dark Border */
+        --bg-dark: #0A0D1F;
+        --bg-surface: #121632;
+        --bg-surface-hover: #1E234A;
+        --primary-from: #00A9FF;
+        --primary-to: #00E0FF;
+        --user-bubble: #31335A;
+        --user-bubble-dark-text: #E0E6FF; /* Text for user bubble is now light */
+        --text-main: #E0E6FF;
+        --text-secondary: #7A81B8;
+        --border-color: rgba(0, 169, 255, 0.2);
+        --success: #00FFA3;
+        --danger: #FF37A6;
       }
       body {
         font-family: 'Cairo', sans-serif;
-        background-color: var(--background);
-        color: var(--text-primary);
+        background-color: var(--bg-dark);
+        color: var(--text-main);
       }
-      .scroll-container {
-        scrollbar-width: thin;
-        scrollbar-color: var(--surface-2) var(--surface-1);
+      
+      /* --- Animated Backgrounds --- */
+      @keyframes move-bg {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
       }
-      .scroll-container::-webkit-scrollbar {
+      @keyframes rotate-bg {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+       @keyframes flow {
+        0% { background-position: 0 0; }
+        100% { background-position: -400px 600px; }
+      }
+
+      .bg-solid {
+        background-color: var(--bg-dark);
+      }
+
+      .bg-neon-nexus {
+        background: linear-gradient(-45deg, #0A0D1F, #121632, #0A0D1F, #1A1F44);
+        background-size: 400% 400%;
+        animation: move-bg 25s ease infinite;
+      }
+      
+      .bg-data-stream {
+        background-color: #0A0D1F;
+        background-image: 
+          radial-gradient(circle at 100% 100%, transparent 20px, rgba(0, 169, 255, 0.1) 21px, rgba(0, 169, 255, 0.1) 34px, transparent 35px),
+          radial-gradient(circle at 0 0, transparent 20px, rgba(0, 169, 255, 0.1) 21px, rgba(0, 169, 255, 0.1) 34px, transparent 35px);
+        background-size: 100px 100px;
+        animation: flow 15s linear infinite;
+      }
+
+      .bg-holo-grid {
+        position: relative;
+        overflow: hidden;
+        background-color: #0A0D1F;
+      }
+      .bg-holo-grid::before {
+        content: '';
+        position: absolute;
+        width: 200%;
+        height: 200%;
+        top: -50%;
+        left: -50%;
+        background: conic-gradient(
+          from 90deg at 50% 50%,
+          #00aaff11,
+          #00e0ff11,
+          #31335a22,
+          #00aaff11
+        );
+        animation: rotate-bg 40s linear infinite;
+      }
+      
+      .bg-cyber-grid {
+        background-color: #0A0D1F;
+        background-image:
+          linear-gradient(rgba(0, 224, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 224, 255, 0.1) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
         width: 8px;
+        height: 8px;
       }
-      .scroll-container::-webkit-scrollbar-track {
-        background: var(--surface-1);
+      ::-webkit-scrollbar-track {
+        background: var(--bg-dark);
       }
-      .scroll-container::-webkit-scrollbar-thumb {
-        background-color: var(--surface-2);
+      ::-webkit-scrollbar-thumb {
+        background: var(--bg-surface-hover);
         border-radius: 10px;
-        border: 2px solid var(--surface-1);
+        border: 2px solid var(--bg-dark);
       }
-      .message-enter {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+      ::-webkit-scrollbar-thumb:hover {
+        background: #282a52;
       }
-      .message-enter-active {
-        opacity: 1;
-        transform: translateY(0);
+      /* Custom Animations */
+      @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+      @keyframes fade-scale-in { 0% { opacity: 0; transform: scale(.97); } 100% { opacity: 1; transform: scale(1); } }
+      .animate-in { animation-duration: 400ms; animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); animation-fill-mode: forwards; }
+      .fade-in { animation-name: fade-in; }
+      .fade-in-0 { animation-name: fade-in; }
+      .zoom-in-95 { animation-name: fade-scale-in; }
+
+      @keyframes message-in {
+        from { opacity: 0; transform: translateY(10px) scale(0.98); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
       }
-      /* Splash Screen Styles */
-      .splash-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: var(--background);
-        z-index: 9999;
-        transition: opacity 0.5s ease-out;
+      .animate-message-in {
+        animation: message-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
       }
-      .splash-content {
-        text-align: center;
-        animation: fadeIn 1s ease-in;
-      }
-      .splash-icon {
-        animation: pulse 2s infinite ease-in-out;
-      }
-      @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.9); }
-        to { opacity: 1; transform: scale(1); }
-      }
-      @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-      }
-       /* New Animation for Welcome Screen */
-      .animate-fade-in-up {
-        animation: fadeInUp 0.5s ease-out forwards;
-      }
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
+      
+      @keyframes pulse-glow {
+        0%, 100% {
+          box-shadow: 0 0 0 0 rgba(0, 169, 255, 0);
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+        50% {
+          box-shadow: 0 0 14px 5px rgba(0, 169, 255, 0.4);
         }
+      }
+      .animate-pulse-glow {
+        animation: pulse-glow 2.5s infinite;
       }
     </style>
 
@@ -110,17 +153,19 @@
   <script type="importmap">
 {
   "imports": {
-    "react/": "https://esm.sh/react@^19.1.0/",
     "react": "https://esm.sh/react@^19.1.0",
     "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.10.0",
-    "idb": "https://esm.sh/idb@^8.0.3"
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.9.0",
+    "react-markdown": "https://esm.sh/react-markdown@9.0.1",
+    "remark-gfm": "https://esm.sh/remark-gfm@4.0.0",
+    "rehype-raw": "https://esm.sh/rehype-raw@7.0.0"
   }
 }
 </script>
-  <script type="module" crossorigin src="/rafiq/assets/index-DuDihcdv.js"></script>
-  <link rel="modulepreload" crossorigin href="/rafiq/assets/vendor-C00jP8IG.js">
-  <link rel="modulepreload" crossorigin href="/rafiq/assets/react-CVJ1edlh.js">
+  <script type="module" crossorigin src="/rafiq/assets/index-CLIdIwUZ.js"></script>
+  <link rel="modulepreload" crossorigin href="/rafiq/assets/vendor-C9fFvcx1.js">
+  <link rel="modulepreload" crossorigin href="/rafiq/assets/react-DBkrbndE.js">
 </head>
   <body>
     <div id="root"></div>
